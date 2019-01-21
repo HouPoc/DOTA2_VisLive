@@ -134,9 +134,37 @@
          
 ** DOTA2 VisLive
    * GET `/matchs`
-     * usage
-       *
-   
+     * Description
+        * Ask backend to return 10 live DOTA2 matches.
+        * It should call STEAM API GET `/IDOTA2Match_570/GetTopLiveGame/v1/` to get data and formanted the raw data.
+        
+     * Parameter
+        * None
+     
+     * Return
+        * It should return a status code and a `games` objects that contains 10 game summaries. Here is a successful sample.
+          ```json
+            {
+              "status": 200,
+              "games": 
+                [
+                  {
+                    "server_steam_id": 90122822260959240,
+                    "radiant_score": 9,
+                    "dire_score": 7,
+                    "game_time": 1183, 
+                    "players": 
+                      [
+                        {
+                          "hero_id": 98,
+                          "hero_name":  "Timbersaw",
+                          "hero_img" :"assets/heroes/onPage/timbersaw.png",
+                        },
+                      ]
+                  }
+                ]
+            }
+          ```
         
        
    
