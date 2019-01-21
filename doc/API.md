@@ -59,4 +59,84 @@
          `hero_id` in the array `players`. Note that, it will have 10 players in one game so that we must have 10 `hero_id`.
       
    * GET `/IDOTA2MatchStats_570/GetRealtimeStats/v1/`
+      * Usage
+        * `http://api.steampowered.com/IDOTA2MatchStats_570/GetRealtimeStats/v1/?server_steam_id=xxx&key=xxx`
+       
+     * Description
+        * API from STEAM to get detailed game status hosted on the server
+        * This API is the basis of DOTA2 VisLive. The backend use this API to get live game status.
+        
+     * Parameter
+        * server_steam_id (17-bit server identification number)
+        * key (32-bit STEAM auth key)
+     
+     * Return
+        * It returns a long json object that describe the game status in detail. Here is part of that object.
+          ```json
+             {
+              "match": {
+                "server_steam_id": 90122822260959240,
+                "matchid": 4351751659,
+                "timestamp": 980,
+                "game_time": 667,
+                "game_mode": 3,
+                "league_id": 0,
+                "league_node_id": 0,
+                "game_state": 5
+              },
+              "teams": [
+                  {
+                    "team_number": 2,
+                    "team_id": 0,
+                    "team_name": "",
+                    "team_tag": "",
+                    "team_logo": 0,
+                    "score": 9,
+                    "net_worth": 15477,
+                    "players": [
+                      {
+                        "accountid": 210750366,
+                        "playerid": 0,
+                        "name": "<<Tira. Duolc",
+                        "team": 2,
+                        "heroid": 80,
+                        "level": 8,
+                        "kill_count": 3,
+                        "death_count": 2,
+                        "assists_count": 0,
+                        "denies_count": 11,
+                        "lh_count": 42,
+                        "gold": 615,
+                        "x": -0.359362810850143433,
+                        "y": 0.303794801235198975,
+                        "net_worth": 3725
+                      },
+                     ]
+                  }
+                 ],
+                 "graph_data": {
+                   "graph_gold": [
+                      0,
+                      -31,
+                      -96,
+                      -507,
+                      -831,
+                      -755,
+                      -660,
+                      -511,
+                      -436,
+                      -492,
+                   ]
+                  }
+               }
+          ```
+         * We basically needs all fields to visualize the game correctly. The field `team` has two objects : `team_name = 2` and `team_name = 3`. We need both of them. In each `team` object, a field called `players` contains 5 players' status in the game. We need all of them. 
+         
+** DOTA2 VisLive
+   * GET `/matchs`
+     * usage
+       *
+   
+        
+       
    
