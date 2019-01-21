@@ -142,7 +142,7 @@
         * None
      
      * Return
-        * It should return a status code and a `games` objects that contains 10 game summaries. Here is a successful sample. The fields `"hero_name"` and `"hero_image"` can be queried from `data/heroes.json` with `"hero_id"`. `"hero_name"` in `data/heroes.js` is '"localized_name"'. and '"hero_image"' is `"img"`
+        * It should return a status code and a `games` objects that contains 10 game summaries. Here is a successful sample. The fields `"hero_name"` and `"hero_image"` can be queried from `data/heroes.json` with `"hero_id"`. `"hero_name"` in `data/heroes.json` is `"localized_name"`. and `"hero_image"` is `"img"`
           ```json
             {
               "status": 200,
