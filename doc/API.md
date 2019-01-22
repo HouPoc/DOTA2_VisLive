@@ -212,11 +212,11 @@
          
           ```
         * If STEAM API returns a empty json, it means that `server_steam_id` is incorrect. It should returns an error code and an error message. Here is the sample.
-         ```json
+          ```json
             { "status": 404,
               "message": "Match Not Found."
             }
-         ```
+          ```
           
        
   
