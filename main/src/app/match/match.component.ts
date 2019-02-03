@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetMatchesService } from '../get-matches.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-match',
@@ -10,7 +11,7 @@ import { GetMatchesService } from '../get-matches.service';
 export class MatchComponent implements OnInit {
   matchList: any = [];
   loadingData = true;
-  constructor(private matches: GetMatchesService) {
+  constructor(private matches: GetMatchesService, private router: Router) {
   }
 
   ngOnInit() {
@@ -20,4 +21,7 @@ export class MatchComponent implements OnInit {
     });
   }
 
+  watchMatch(matchId: string) {
+    this.router.navigate(['matchDetail']);
+  }
 }

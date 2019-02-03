@@ -2,7 +2,7 @@
   <mat-spinner class="loading"></mat-spinner>
 </div>
 <ng-template #displayMatches>
-  <mat-grid-list cols="3" rowHeight = '100px'>
+  <mat-grid-list cols="3" rowHeight = '120px'>
     <mat-grid-tile *ngFor= "let match of matchList" [colspan]="3" [rowspan]="1">
       <mat-expansion-panel hideToggle>
         <mat-expansion-panel-header collapsedHeight='80px' expandedHeight = '80px'>
@@ -14,7 +14,7 @@
               <span id = "viewer"><i class="material-icons"> visibility </i> {{match.viewer}} </span>
             </div>
           </mat-expansion-panel-header>
-        <mat-panel-description>
+        <mat-panel-description class = "adjustHeight">
             <div class = "matchDetail">
 
               <div class = "radiant" >
@@ -23,6 +23,9 @@
               <div class = "dire">
                   <img *ngFor = "let hero of match.dire.heroes" class = "dire-hero" src={{hero.img}} title={{hero.name}}>
                 </div>
+            </div>
+            <div class = "matchLink">
+              <button mat-stroked-button (click)="watchMatch(match.serverSteamId);"> Watch Match </button>
             </div>
         </mat-panel-description>
       </mat-expansion-panel>

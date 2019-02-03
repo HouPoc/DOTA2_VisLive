@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { MatchComponent } from './match/match.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +10,8 @@ import { TimeStamp2MinSecPipe } from './time-stamp2-min-sec.pipe';
 import { GetMatchesService } from './get-matches.service';
 import { HttpModule } from '@angular/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatchDetailComponent } from './match-detail/match-detail.component';
+import {MatButtonModule} from '@angular/material/button';
 
 
 const ROUTES = [
@@ -21,7 +23,12 @@ const ROUTES = [
   {
     path: 'matches',
     component: MatchComponent
+  },
+  {
+    path: 'matchDetail',
+    component: MatchDetailComponent,
   }
+
 ];
 
 @NgModule({
@@ -29,6 +36,7 @@ const ROUTES = [
     AppComponent,
     MatchComponent,
     TimeStamp2MinSecPipe,
+    MatchDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +45,7 @@ const ROUTES = [
     MatExpansionModule,
     HttpModule ,
     MatProgressSpinnerModule,
+    MatButtonModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [GetMatchesService],

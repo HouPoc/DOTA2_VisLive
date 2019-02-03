@@ -6,7 +6,7 @@ const lossLessJSON = require('lossless-json');
 const path = require('path');
 const fs = require('fs');
 const apiKey = "key=B75674CAA3B45A36E8E42A201A48A540";
-const partner = "&partner=0";
+const partner = "&partner=1";
 const getTopLiveMatch = "https://api.steampowered.com/IDOTA2Match_570/GetTopLiveGame/v1/?";
 const getRealTimeStats = "https://api.steampowered.com/IDOTA2MatchStats_570/GetRealtimeStats/v001/?";
 var app = express();
@@ -45,9 +45,10 @@ function parseGameObj(gameList, gameListServerSteamId){
     for (i =0 ; i < 5; i++){
       radiantTeam.push(tmp["teams"][0]["players"][i]["accountid"]);
     }
+    console.log(game);
 
     var i;
-    for (i = 0; i < 10; i++){
+    for (i = 0; i < game["players"].length; i++){
       try {
         id = game["players"][i]["hero_id"];
         id = id.toString();

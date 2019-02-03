@@ -48,6 +48,9 @@
   padding-top: 1rem;
 }
 
+.adjustHeight{
+  display: block;
+}
 .matchDetail{
   display: inline-flex;
 }
@@ -62,4 +65,16 @@
   width: 40px;
   height: 20px;
   margin-right: 2px;
+}
+
+.matchLink {
+  text-align: center;
+  width: 452px;
+  margin-top: 0.25rem;
+}
+
+.mat-stroked-button {
+  border: 1px solid currentColor;
+  padding: 0 5px;
+  line-height: 18px;
 }

@@ -12,3 +12,9 @@ h2 {
   font-family: 'Kalam', cursive;
   text-align: center;
 }
+
+.mat-display-2{
+  font: 400 45px/48px Roboto,"Helvetica Neue",sans-serif;
+  margin: 0 0 30px;
+  letter-spacing: -.005em;
+}
