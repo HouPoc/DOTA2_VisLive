@@ -9,6 +9,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { TimeStamp2MinSecPipe } from './time-stamp2-min-sec.pipe';
 import { GetMatchesService } from './get-matches.service';
 import { HttpModule } from '@angular/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 const ROUTES = [
@@ -35,6 +36,7 @@ const ROUTES = [
     MatGridListModule,
     MatExpansionModule,
     HttpModule ,
+    MatProgressSpinnerModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [GetMatchesService],

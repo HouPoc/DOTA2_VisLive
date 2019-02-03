@@ -25,9 +25,13 @@
     "body-parser": "^1.18.3",
     "core-js": "^2.5.4",
     "express": "^4.16.4",
+    "lossless-json": "^1.0.3",
     "nodemon": "^1.18.9",
     "request": "^2.88.0",
+    "request-promise": "^4.2.2",
     "rxjs": "~6.2.0",
+    "sync-request": "^6.0.0",
+    "then-request": "^6.0.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

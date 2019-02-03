@@ -1,0 +1,45 @@
+<div  *ngIf="loadingData == true; else displayMatches">
+  <mat-spinner class="loading"></mat-spinner>
+</div>
+<ng-template #displayMatches>
+  <mat-grid-list cols="3" rowHeight = '100px'>
+    <mat-grid-tile *ngFor= "let match of matchList" [colspan]="3" [rowspan]="1">
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header collapsedHeight='80px' expandedHeight = '80px'>
+            <div class = "matchBrif">
+              <span id="radiant"> {{match.radiant.kills}} </span>
+              <span id ="time"> {{match.gameTime | timeStamp2MinSec}} </span>
+              <span id = "dire"> {{match.dire.kills}} </span>
+              <span id = "MMR">MMR: {{match.MMR}} </span>
+              <span id = "viewer"><i class="material-icons"> visibility </i> {{match.viewer}} </span>
+            </div>
+          </mat-expansion-panel-header>
+        <mat-panel-description>
+            <div class = "matchDetail">
+
+              <div class = "radiant" >
+                <img *ngFor = "let hero of match.radiant.heroes" class = "radiant-hero" src={{hero.img}} title={{hero.name}}>
+              </div>
+              <div class = "dire">
+                  <img *ngFor = "let hero of match.dire.heroes" class = "dire-hero" src={{hero.img}} title={{hero.name}}>
+                </div>
+            </div>
+        </mat-panel-description>
+      </mat-expansion-panel>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

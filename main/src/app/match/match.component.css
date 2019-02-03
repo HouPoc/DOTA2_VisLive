@@ -1,0 +1,65 @@
+.loading{
+  margin:auto;
+}
+
+.matchBrif{
+  display: inline-flex;
+  text-align: center;
+  width: 560px;
+}
+
+.matchBrif #radiant {
+  color: green;
+  font-size: 45px;
+  width: 80px;
+  margin-left: 6rem;
+}
+
+.matchBrif #time {
+  font-size: 25px;
+  margin: auto;
+}
+
+.matchBrif #dire {
+  color: darkred;
+  width: 80px;
+  font-size: 45px;
+  margin-right: 6rem;
+
+}
+
+.matchBrif #viewer{
+  font-size: 10px;
+  margin: auto;
+
+  padding-top: 1rem;
+}
+.matchBrif #viewer i{
+  font-size: 7px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.matchBrif #MMR{
+  font-size: 10px;
+  font-weight: 400;
+  color: #e2a822;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 1rem;
+}
+
+.matchDetail{
+  display: inline-flex;
+}
+
+.matchDetail .radiant{
+  padding-right: 1rem;
+}
+.matchDetail .dire{
+  padding-left: 1rem;
+}
+.matchDetail .radiant-hero, .matchDetail .dire-hero{
+  width: 40px;
+  height: 20px;
+  margin-right: 2px;
+}

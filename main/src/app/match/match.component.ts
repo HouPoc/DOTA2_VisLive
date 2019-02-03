@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetMatchesService } from '../get-matches.service';
 
-
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
@@ -9,15 +8,15 @@ import { GetMatchesService } from '../get-matches.service';
 })
 
 export class MatchComponent implements OnInit {
-  match: any;
+  matchList: any = [];
+  loadingData = true;
   constructor(private matches: GetMatchesService) {
   }
 
   ngOnInit() {
-    this.matches.getLiveMatches().subscribe(match => {
-      console.log(match);
-      this.match = match;
-      console.log(this.match);
+    this.matches.getLiveMatches().subscribe(matches => {
+      this.matchList = matches;
+      this.loadingData = false;
     });
   }
 
