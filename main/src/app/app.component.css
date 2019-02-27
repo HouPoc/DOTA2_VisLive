@@ -18,3 +18,9 @@ h2 {
   margin: 0 0 30px;
   letter-spacing: -.005em;
 }
+
+.mat-router-rendering {
+  margin: auto;
+  width:1400px;
+  height: auto;
+}

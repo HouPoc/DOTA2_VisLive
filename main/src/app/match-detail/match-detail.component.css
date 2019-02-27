@@ -1,0 +1,7 @@
+.match-map .map{
+    width: 550px;
+    height: 550px;
+    background-image: url('../../assets/maps/720e.png');
+    background-size: cover;
+
+}
