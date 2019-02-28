@@ -1,7 +1,71 @@
-.match-map .map{
-    width: 550px;
-    height: 550px;
+.match-view .match-map .map{
+    width: 500px;
+    height: 500px;
     background-image: url('../../assets/maps/720e.png');
     background-size: cover;
-
 }
+
+.match-view .match-core .matchBrif{
+    display: inline-flex;
+    text-align: center;
+    width: 560px;
+  }
+  
+.match-view .match-core .matchBrif #radiant {
+    color: green;
+    font-size: 45px;
+    width: 80px;
+    margin-left: 6rem;
+  }
+  
+.match-view .match-core .matchBrif #time {
+    font-size: 25px;
+    margin: auto;
+  }
+  
+.match-view .match-core .matchBrif #dire {
+    color: darkred;
+    width: 80px;
+    font-size: 45px;
+    margin-right: 6rem;
+  
+  }
+  
+.match-view .match-core .matchBrif #viewer{
+    font-size: 10px;
+    margin: auto;
+    padding-top: 1rem;
+  }
+
+  .match-view .match-core .matchBrif #viewer i{
+    font-size: 7px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .match-view .match-core .matchBrif #MMR{
+    font-size: 10px;
+    font-weight: 400;
+    color: #e2a822;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-top: 1rem;
+  }
+  
+  .match-ban-pick .pick{
+    display: inline-flex;
+  }
+  
+  .match-ban-pick .pick .radiant{
+    margin-right: 3rem;
+    padding-right: 9rem;
+  }
+  .match-ban-pick .pick .dire{
+    margin-left: 1.2rem;
+    padding-right: 6.8rem;
+  }
+  .match-ban-pick .pick .radiant-hero, .match-ban-pick .pick .dire-hero{
+    width: 100px;
+    height: 50px;
+    margin-right: 2px;
+  }
+    

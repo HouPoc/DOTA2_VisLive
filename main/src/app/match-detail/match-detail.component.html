@@ -1,9 +1,23 @@
 <mat-grid-list class="match-view" cols="5" rowHeight='120px'>
   <mat-grid-tile class ="match-core" colspan = "5" rowspan="1">
-
+    <div class = "matchBrif">
+      <span id="radiant">20 </span>
+      <span id ="time"> {{1345 | timeStamp2MinSec}} </span>
+      <span id = "dire"> 12 </span>
+      <span id = "MMR">MMR: 3321 </span>
+      <span id = "viewer"><i class="material-icons"> visibility </i> 212 </span>
+    </div>
   </mat-grid-tile>
   <mat-grid-tile class ="match-ban-pick" colspan = "5" rowspan="1">
-
+    <div class = "pick">
+        <div class = "radiant" >
+            <img *ngFor = "let hero of heroes" class = "radiant-hero" src={{hero}} title="pick">
+          </div>
+          <div class = "dire">
+            <img *ngFor = "let hero of heroes" class = "dire-hero" src={{hero}}  title="pick">
+          </div>
+    </div>
+   
   </mat-grid-tile>
   <mat-grid-tile class ="match-map" colspan = "2" rowspan="4">
     <div class="map"></div> 

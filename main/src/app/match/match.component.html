@@ -22,7 +22,7 @@
               </div>
               <div class = "dire">
                   <img *ngFor = "let hero of match.dire.heroes" class = "dire-hero" src={{hero.img}} title={{hero.name}}>
-                </div>
+              </div>
             </div>
             <div class = "matchLink">
               <button mat-stroked-button (click)="watchMatch(match.serverSteamId);"> Watch Match </button>
