@@ -1,6 +1,6 @@
 .match-view .match-map .map{
-    width: 500px;
-    height: 500px;
+    width: 560px;
+    height: 560px;
     background-image: url('../../assets/maps/720e.png');
     background-size: cover;
 }
@@ -51,21 +51,37 @@
     padding-top: 1rem;
   }
   
+  .match-ban-pick>::ng-deep .mat-figure{
+    display: block;
+  }
   .match-ban-pick .pick{
     display: inline-flex;
   }
-  
+
+  .match-ban-pick .ban{
+    display: inline-flex;
+  }
   .match-ban-pick .pick .radiant{
-    margin-right: 3rem;
-    padding-right: 9rem;
+    margin-right: 85px;
+   
   }
   .match-ban-pick .pick .dire{
-    margin-left: 1.2rem;
-    padding-right: 6.8rem;
+    margin-left: 87px;
   }
-  .match-ban-pick .pick .radiant-hero, .match-ban-pick .pick .dire-hero{
-    width: 100px;
-    height: 50px;
-    margin-right: 2px;
+  .match-ban-pick .pick .onPage{
+    width: 112px;
+    height: 55px;
   }
-    
+
+  .match-ban-pick .ban .radiant{
+    margin-right: 88px;
+   
+  }
+  .match-ban-pick .ban .dire{
+    margin-left: 88px;
+  }
+  .match-ban-pick .ban .onPage{
+    width: 93px;
+    height: 47px;
+  }
+      
