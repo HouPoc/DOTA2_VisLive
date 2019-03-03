@@ -8,7 +8,7 @@
 .match-view .match-core .matchBrif{
     display: inline-flex;
     text-align: center;
-    width: 560px;
+    width: 520px;
   }
   
 .match-view .match-core .matchBrif #radiant {
@@ -84,4 +84,18 @@
     width: 93px;
     height: 47px;
   }
-      
+  
+  .match-mata-data::ng-deep .mat-tab-label{
+    width: 50%;
+}
+
+
+.match-mata-data::ng-deep .mat-tab-label-content{
+  color: black;
+}
+
+.match-mata-data  .net-worth-chart {
+    width: 620px;
+    height: 420px;
+    margin-top: 100px; 
+  }

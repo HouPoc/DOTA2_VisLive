@@ -13,7 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatchDetailComponent } from './match-detail/match-detail.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import { ChartsModule } from 'ng2-charts';
 
 const ROUTES = [
   {
@@ -48,6 +48,7 @@ const ROUTES = [
     MatProgressSpinnerModule,
     MatButtonModule,
     MatTabsModule,
+    ChartsModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [GetMatchesService],

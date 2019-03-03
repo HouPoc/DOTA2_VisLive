@@ -26,6 +26,7 @@
     "core-js": "^2.5.4",
     "express": "^4.16.4",
     "lossless-json": "^1.0.3",
+    "ng2-charts": "^1.6.0",
     "nodemon": "^1.18.9",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",

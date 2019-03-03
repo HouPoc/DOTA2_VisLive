@@ -26,13 +26,36 @@
         </div>
     </div>
   </mat-grid-tile>
-  <mat-grid-tile class ="match-map" colspan = "2" rowspan="4">
+  <mat-grid-tile class ="match-map" colspan = "2" rowspan="5">
     <div class="map"></div> 
   </mat-grid-tile>
-  <mat-grid-tile class ="match-matadata" colspan = "3" rowspan="4">
+  <mat-grid-tile class ="match-mata-data" colspan = "3" rowspan="5">
     <mat-tab-group>
-      <mat-tab label="EXP"> Content 1 </mat-tab>
-      <mat-tab label="GOLD"> Content 2 </mat-tab>
+        <mat-tab label="NET WORTH">
+            <div class='net-worth-chart'>
+                <canvas width="620" height="420" id = 'net-worth-chart' baseChart  
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                ></canvas>
+            </div>
+              
+        </mat-tab>
+        <mat-tab label="NET WORTH DIFF">
+          <div class='net-worth-chart'>
+              <canvas width="620" height="420" id = 'net-worth-chart' baseChart  
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              ></canvas>
+          </div>  
+      </mat-tab>
     </mat-tab-group>
   </mat-grid-tile>
   <mat-grid-tile class ="match-heroes" colspan = "5" rowspan="1">
