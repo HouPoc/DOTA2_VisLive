@@ -99,3 +99,8 @@
     height: 420px;
     margin-top: 100px; 
   }
+
+  .match-heroes table{
+    width: 1280px;
+    margin-right: 110px;
+  }

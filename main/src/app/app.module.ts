@@ -14,6 +14,9 @@ import { MatchDetailComponent } from './match-detail/match-detail.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ChartsModule } from 'ng2-charts';
+import {MatTableModule} from '@angular/material/table';
+
+import {MatSortModule} from '@angular/material/sort';
 
 const ROUTES = [
   {
@@ -49,6 +52,8 @@ const ROUTES = [
     MatButtonModule,
     MatTabsModule,
     ChartsModule,
+    MatSortModule,
+    MatTableModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [GetMatchesService],
