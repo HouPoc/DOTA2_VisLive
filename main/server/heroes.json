@@ -4174,5 +4174,41 @@
     ],
     "primary_attr": "int",
     "base_health": 200
+  },
+
+  "129": {
+    "id": 129,
+    "localized_name": "Mars",
+    "primary_attr": "str",
+    "attack_type": "Melee",
+    "roles": [
+      "Carry",
+      "Initiator",
+      "Disabler",
+      "Durable"
+    ],
+    "img": "assets/heroes/onPage/mars.png",
+    "icon": "assets/heroes/onMap/mars.png",
+    "base_health": 200,
+    "base_health_regen": null,
+    "base_mana": 75,
+    "base_mana_regen": 0,
+    "base_armor": 0,
+    "base_mr": 25,
+    "base_attack_min": 35,
+    "base_attack_max": 43,
+    "base_str": 23,
+    "base_agi": 20,
+    "base_int": 17,
+    "str_gain": 3.6,
+    "agi_gain": 1.9,
+    "int_gain": 1.4,
+    "attack_range": 250,
+    "projectile_speed": 900,
+    "attack_rate": 1.8,
+    "move_speed": 310,
+    "turn_rate": 0.8,
+    "cm_enabled": false,
+    "legs": 2
   }
 }

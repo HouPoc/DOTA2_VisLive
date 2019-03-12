@@ -45,7 +45,7 @@ function parseGameObj(gameList, gameListServerSteamId){
     for (i =0 ; i < 5; i++){
       radiantTeam.push(tmp["teams"][0]["players"][i]["accountid"]);
     }
-    console.log(game);
+    //console.log(game);
 
     var i;
     for (i = 0; i < game["players"].length; i++){
@@ -82,6 +82,20 @@ app.get('/liveMatches', function(req, res){
     gameObjects = parseGameObj(gameList["game_list"], gameListServerSteamId["game_list"]);
     res.status(200).send(gameObjects);
   });
+});
+
+app.get('/matchDetail/:server_steam_id', function(req, res){
+  var SSD = 'server_steam_id='+req.params.server_steam_id;
+  request({
+    uri: getRealTimeStats+SSD+'&'+apiKey,
+    method: 'GET',
+    timeout: 100000
+  }, function(response, body){
+    serverResponse = body["body"];
+    console.log(serverResponse)
+    gameDetail = JSON.parse(serverResponse);
+    res.status(200).send(gameDetail)
+  })
 });
 
 app.get('*', (req, res) => {
