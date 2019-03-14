@@ -29,7 +29,7 @@ const ROUTES = [
     component: MatchComponent
   },
   {
-    path: 'matchDetail',
+    path: 'matchDetail/:server_steam_id',
     component: MatchDetailComponent,
   }
 
