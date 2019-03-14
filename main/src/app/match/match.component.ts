@@ -30,7 +30,7 @@ export class MatchComponent implements OnDestroy, OnInit {
     clearInterval(this.interval);
   }
 
-  watchMatch(matchId: string) {
-    this.router.navigate(['matchDetail', matchId]);
+  watchMatch(server_steam_id: string) {
+    this.router.navigate(['match', server_steam_id]);
   }
 }

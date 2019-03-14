@@ -4,19 +4,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { MatchComponent } from './match/match.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatExpansionModule} from '@angular/material/expansion';
+import { MatGridListModule} from '@angular/material/grid-list';
 import { TimeStamp2MinSecPipe } from './time-stamp2-min-sec.pipe';
-import { GetMatchesService } from './get-matches.service';
 import { HttpModule } from '@angular/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatchDetailComponent } from './match-detail/match-detail.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatButtonModule} from '@angular/material/button';
+import { MatTabsModule} from '@angular/material/tabs';
 import { ChartsModule } from 'ng2-charts';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule} from '@angular/material/table';
+import { MatSortModule} from '@angular/material/sort';
 
-import {MatSortModule} from '@angular/material/sort';
+import { GetMatchDetailService } from './get-match-detail.service';
+import { GetMatchesService } from './get-matches.service';
 
 const ROUTES = [
   {
@@ -29,7 +30,7 @@ const ROUTES = [
     component: MatchComponent
   },
   {
-    path: 'matchDetail/:server_steam_id',
+    path: 'match/:server_steam_id',
     component: MatchDetailComponent,
   }
 
@@ -56,7 +57,7 @@ const ROUTES = [
     MatTableModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [GetMatchesService],
+  providers: [GetMatchesService, GetMatchDetailService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

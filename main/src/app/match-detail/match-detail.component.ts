@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {MatSort, MatTableDataSource} from '@angular/material';
+import { MatSort, MatTableDataSource} from '@angular/material';
+import { GetMatchDetailService } from '../get-match-detail.service';
 
 export interface PeriodicElement {
   name: string;
@@ -30,6 +31,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 
 export class MatchDetailComponent implements OnInit {
+  matchDetail: any;
+
+  interval: any;
   request: any;
   server_steam_id: any;
   heroes: any;
@@ -54,24 +58,34 @@ export class MatchDetailComponent implements OnInit {
 
 
 
-  constructor(private matchDetail: ActivatedRoute, private matchList: Router) { }
+  constructor(private match: ActivatedRoute,
+              private getMatchDetail: GetMatchDetailService
+              ) { }
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.request = this.matchDetail.params.subscribe(params => {
-      this.server_steam_id = params;
-      this.heroes = ['../../assets/heroes/onPage/abaddon.png', 
-                     '../../assets/heroes/onPage/alchemist.png',
-                     '../../assets/heroes/onPage/axe.png', 
-                     '../../assets/heroes/onPage/chen.png', 
-                     '../../assets/heroes/onPage/clinkz.png',  
-                    ];
-      this.bans = '../../assets/heroes/onPage/default.png'
+    this.heroes = ['../../assets/heroes/onPage/abaddon.png',
+                   '../../assets/heroes/onPage/alchemist.png',
+                   '../../assets/heroes/onPage/axe.png',
+                   '../../assets/heroes/onPage/chen.png',
+                   '../../assets/heroes/onPage/clinkz.png',
+                  ];
+    this.bans = '../../assets/heroes/onPage/default.png';
+
+    this.request = this.match.params.subscribe(params => {
+      this.server_steam_id = params.server_steam_id;
       console.log(this.server_steam_id);
       this.dataSource.sort = this.sort;
     });
+    this.interval = setInterval(() => {
+      this.getMatchDetail.getMatchDetail(this.server_steam_id).subscribe(match_detail => {
+        this.matchDetail = match_detail;
+      });
+      console.log(this.matchDetail);
+    }, 5000);
+
   }
 }
