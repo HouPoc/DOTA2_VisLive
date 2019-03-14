@@ -71,61 +71,103 @@ function parseGameObj(gameList, gameListServerSteamId){
 
 function parseRawGameDetail(raw_gameDetail){
   var gameDetail = {};
-  var match = raw_gameDetail["match"];
-  gameDetail["time"] = match["game_time"];
+  var matchDetail = raw_gameDetail.match;
+  var teams = raw_gameDetail["teams"];
+  var buildings = raw_gameDetail["buildings"];
+  var graph_data = raw_gameDetail["graph_data"];
+  //console.log(raw_gameDetail); 
+  console.log(matchDetail);
+  //console.log(teams);
+  //console.log(buildings);
+  //console.log(graph_data);
+  gameDetail["time"] = matchDetail["game_time"];
   gameDetail["picks"] = {"radiant": [], "dire": []};
   gameDetail["bans"] = {"radiant": [], "dire": []};
-  for (i = 0; i < 10; i++){
-    pick = match["picks"][i];
-    try {
-      id = pick["hero"];
-      id = id.toString();
-    } catch (error){
-      //console.log(error);
-      id = 0;
-    }
-    name = (id > 0) ? heroRef[id]["localized_name"] : 'Not Defined';
-    img = (id > 0) ? heroRef[id]["img"] : 'assets/heroes/onPage/default.png';
-    icon = (id > 0) ? heroRef[id]["icon"] : 'assets/heroes/onMap/default.png';
-    if (pick["team"] == 2){
-      gameDetail["picks"]["radiant"].push({"name": name, "img": img, "icon": icon})
-    }
-    else {
-      gameDetail["picks"]["dire"].push({"name": name, "img": img, "icon": icon})
-    }
-  }
-  for (i = 0; i < 12; i++){
-    ban = match["bans"][i];
-    try {
-      id = ban["hero"];
-      id = id.toString();
-    } catch (error){
-      //console.log(error);
-      id = 0;
-    }
-    name = (id > 0) ? heroRef[id]["localized_name"] : 'Not Defined';
-    img = (id > 0) ? heroRef[id]["img"] : 'assets/heroes/onPage/default.png';
-    if (pick["team"] == 2){
-      gameDetail["bans"]["radiant"].push({"name": name, "img": img})
-    }
-    else {
-      gameDetail["bans"]["dire"].push({"name": name, "img": img})
+
+  if ("bans" in matchDetail){
+    for (i = 0; i < 12; i++){
+      try {
+        ban = matchDetail["bans"][i];
+        id = ban["hero"];
+        id = id.toString();
+      } catch (error){
+        console.log("No Bans or Hero ID is not in dataset in finding bans");
+        id = 0;
+      }
+      name = (id > 0) ? heroRef[id]["localized_name"] : 'Not Defined';
+      img = (id > 0) ? heroRef[id]["img"] : 'assets/heroes/onPage/default.png';
+      if (pick["team"] == 2){
+        gameDetail["bans"]["radiant"].push({"name": name, "img": img})
+      }
+      else {
+        gameDetail["bans"]["dire"].push({"name": name, "img": img})
+      }
     }
   }
   gameDetail["radiant"] = {};
   gameDetail["dire"] = {};
 
-  gameDetail["radiant"]["score"] = match["team"][0]["score"];
-  gameDetail["radiant"]["netWorth"] = match["team"][0]["new_worth"];
-  gameDetail["radiant"]["players"] = match["team"][0]["players"];
-  gameDetail["radiant"]["buildings"]
+  gameDetail["radiant"]["score"] = teams[0]["score"];
+  gameDetail["radiant"]["netWorth"] = teams[0]["new_worth"];
+  RPs = teams[0]["players"];
+  for (i = 0; i < 5; i++){
+    id = RPs[i]["heroid"];
+    delete RPs[i]["accountid"];
+    delete RPs[i]["playerid"];
+    delete RPs[i]["heroid"];
+    delete RPs[i]["team"];
+    name = (id > 0) ? heroRef[id]["localized_name"] : 'Not Defined';
+    img = (id > 0) ? heroRef[id]["img"] : 'assets/heroes/onPage/default.png';
+    icon = (id > 0) ? heroRef[id]["icon"] : 'assets/heroes/onMap/axe.png';
+    gameDetail["picks"]["radiant"].push({"name": name, "img": img, "icon": icon})
+  }
+  gameDetail["radiant"]["players"] = RPs;
 
 
-  gameDetail["dire"]["score"] = match["team"][1]["score"];
-  gameDetail["dire"]["netWorth"] = match["team"][1]["new_worth"];
-  gameDetail["dire"]["players"] = match["team"][1]["players"];
+  gameDetail["dire"]["score"] = teams[1]["score"];
+  gameDetail["dire"]["netWorth"] = teams[1]["new_worth"];
+  DPs = teams[1]["players"];
+  for (i = 0; i < 5; i++){
+    id = DPs[i]["heroid"];
+    delete DPs[i]["accountid"];
+    delete DPs[i]["playerid"];
+    delete DPs[i]["heroid"];
+    delete DPs[i]["team"];
+    name = (id > 0) ? heroRef[id]["localized_name"] : 'Not Defined';
+    img = (id > 0) ? heroRef[id]["img"] : 'assets/heroes/onPage/default.png';
+    icon = (id > 0) ? heroRef[id]["icon"] : 'assets/heroes/onMap/axe.png';
+    gameDetail["picks"]["dire"].push({"name": name, "img": img, "icon": icon})
+  }
+  gameDetail["dire"]["players"] = DPs;
+  gameDetail["radiant"]["buildings"] = {};
+  gameDetail["dire"]["buildings"] = {};
 
-  gameDetail["worth_graph"] = match["graph_data"]["graph_gold"];
+  gameDetail["radiant"]["buildings"][0] =  Array(8).fill(1); // L1 + L2 + L3 + H(towers) 3 + 3 + 3 + 2 = 11
+  gameDetail["radiant"]["buildings"][1] =  Array(6).fill(1); // Barracks 6
+  gameDetail["radiant"]["buildings"][2] =  Array(1).fill(1); // Base 1
+
+  gameDetail["dire"]["buildings"][0] =  Array(8).fill(1); // L1 + L2 + L3 + H(towers)
+  gameDetail["dire"]["buildings"][1] =  Array(6).fill(1); // Barracks
+  gameDetail["dire"]["buildings"][2] =  Array(1).fill(1); // Base
+  numBuildings = buildings.length; 
+
+  if ( numBuildings != 2){ 
+    // # of tower = 11
+    for (i = 0; i < 11; i++){
+      gameDetail["radiant"]["buildings"][0][i] = buildings[i]["destroyed"] == true? 0 : 1;  
+      gameDetail["dire"]["buildings"][0][i] = buildings[i+18]["destroyed"] == true? 0 : 1; 
+    }
+    // # of Barracks = 6
+    for (i = 11; i < 11+6; i++){
+      gameDetail["radiant"]["buildings"][1][i - 11] = buildings[i]["destroyed"] == true? 0 : 1;  
+      gameDetail["dire"]["buildings"][1][i - 11] = buildings[i+18]["destroyed"] == true? 0 : 1; 
+    } 
+    // # of Base = 1
+    gameDetail["radiant"]["buildings"][2][0] = buildings[17]["destroyed"] == true? 0 : 1;  
+    gameDetail["dire"]["buildings"][2][0] = buildings[35]["destroyed"] == true? 0 : 1; 
+  }   
+  gameDetail["worth_graph"] =graph_data["graph_gold"];
+  return gameDetail;
 }
 
 
@@ -152,9 +194,9 @@ app.get('/matchDetail/:server_steam_id', function(req, res){
     timeout: 100000
   }, function(response, body){
     serverResponse = body["body"];
-    console.log(serverResponse)
-    raw_gameDetail = JSON.parse(serverResponse);
-    gameDetail = parseRawGameDetail(raw_gameDetail);
+    //console.log(serverResponse);
+    gameDetail_raw = JSON.parse(serverResponse)
+    gameDetail = parseRawGameDetail(gameDetail_raw);
     res.status(200).send(gameDetail);
   })
 });
