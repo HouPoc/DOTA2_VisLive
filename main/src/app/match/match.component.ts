@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetMatchesService } from '../get-matches.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-match',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 export class MatchComponent implements OnInit {
   matchList: any = [];
   loadingData = true;
+  public data$ = BehaviorSubject<any> = new BehaviorSubject({});
   constructor(private matches: GetMatchesService, private router: Router) {
   }
 

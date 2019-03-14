@@ -69,6 +69,66 @@ function parseGameObj(gameList, gameListServerSteamId){
   return gameObjects;
 }
 
+function parseRawGameDetail(raw_gameDetail){
+  var gameDetail = {};
+  var match = raw_gameDetail["match"];
+  gameDetail["time"] = match["game_time"];
+  gameDetail["picks"] = {"radiant": [], "dire": []};
+  gameDetail["bans"] = {"radiant": [], "dire": []};
+  for (i = 0; i < 10; i++){
+    pick = match["picks"][i];
+    try {
+      id = pick["hero"];
+      id = id.toString();
+    } catch (error){
+      //console.log(error);
+      id = 0;
+    }
+    name = (id > 0) ? heroRef[id]["localized_name"] : 'Not Defined';
+    img = (id > 0) ? heroRef[id]["img"] : 'assets/heroes/onPage/default.png';
+    icon = (id > 0) ? heroRef[id]["icon"] : 'assets/heroes/onMap/default.png';
+    if (pick["team"] == 2){
+      gameDetail["picks"]["radiant"].push({"name": name, "img": img, "icon": icon})
+    }
+    else {
+      gameDetail["picks"]["dire"].push({"name": name, "img": img, "icon": icon})
+    }
+  }
+  for (i = 0; i < 12; i++){
+    ban = match["bans"][i];
+    try {
+      id = ban["hero"];
+      id = id.toString();
+    } catch (error){
+      //console.log(error);
+      id = 0;
+    }
+    name = (id > 0) ? heroRef[id]["localized_name"] : 'Not Defined';
+    img = (id > 0) ? heroRef[id]["img"] : 'assets/heroes/onPage/default.png';
+    if (pick["team"] == 2){
+      gameDetail["bans"]["radiant"].push({"name": name, "img": img})
+    }
+    else {
+      gameDetail["bans"]["dire"].push({"name": name, "img": img})
+    }
+  }
+  gameDetail["radiant"] = {};
+  gameDetail["dire"] = {};
+
+  gameDetail["radiant"]["score"] = match["team"][0]["score"];
+  gameDetail["radiant"]["netWorth"] = match["team"][0]["new_worth"];
+  gameDetail["radiant"]["players"] = match["team"][0]["players"];
+  gameDetail["radiant"]["buildings"]
+
+
+  gameDetail["dire"]["score"] = match["team"][1]["score"];
+  gameDetail["dire"]["netWorth"] = match["team"][1]["new_worth"];
+  gameDetail["dire"]["players"] = match["team"][1]["players"];
+
+  gameDetail["worth_graph"] = match["graph_data"]["graph_gold"];
+}
+
+
 app.get('/liveMatches', function(req, res){
   request({
     uri: getTopLiveMatch+apiKey+partner,
@@ -93,8 +153,9 @@ app.get('/matchDetail/:server_steam_id', function(req, res){
   }, function(response, body){
     serverResponse = body["body"];
     console.log(serverResponse)
-    gameDetail = JSON.parse(serverResponse);
-    res.status(200).send(gameDetail)
+    raw_gameDetail = JSON.parse(serverResponse);
+    gameDetail = parseRawGameDetail(raw_gameDetail);
+    res.status(200).send(gameDetail);
   })
 });
 
