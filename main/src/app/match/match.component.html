@@ -2,10 +2,10 @@
   <mat-spinner class="loading"></mat-spinner>
 </div>
 <ng-template #displayMatches>
-  <mat-grid-list cols="3" rowHeight = '120px'>
+  <mat-grid-list cols="3" rowHeight = '140px'>
     <mat-grid-tile *ngFor= "let match of matchList" [colspan]="3" [rowspan]="1">
-      <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header collapsedHeight='80px' expandedHeight = '80px'>
+      <mat-expansion-panel hideToggle [expanded]="true" [disabled]="true">
+        <mat-expansion-panel-header collapsedHeight='80px' expandedHeight = '60px' >
             <div class = "matchBrif">
               <span id="radiant"> {{match.radiant.kills}} </span>
               <span id ="time"> {{match.gameTime | timeStamp2MinSec}} </span>

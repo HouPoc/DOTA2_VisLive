@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetMatchesService } from '../get-matches.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-match',
@@ -11,16 +10,22 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class MatchComponent implements OnInit {
   matchList: any = [];
+  interval: any;
   loadingData = true;
-  public data$ = BehaviorSubject<any> = new BehaviorSubject({});
   constructor(private matches: GetMatchesService, private router: Router) {
   }
 
   ngOnInit() {
-    this.matches.getLiveMatches().subscribe(matches => {
-      this.matchList = matches;
-      this.loadingData = false;
-    });
+
+    this.interval = setInterval(() => { 
+      this.matches.getLiveMatches().subscribe(matches => {
+        this.matchList = matches;
+        this.loadingData = false;
+      });
+      console.log(this.matchList);
+  }, 5000);
+
+    
   }
 
   watchMatch(matchId: string) {
