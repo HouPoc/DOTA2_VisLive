@@ -70,8 +70,6 @@ export class MatchDetailComponent implements OnInit {
   public lineChartType = 'line';
 
 
-
-
   constructor(private match: ActivatedRoute,
               private getMatchDetail: GetMatchDetailService
               ) { }
@@ -84,15 +82,18 @@ export class MatchDetailComponent implements OnInit {
     // Get Server Steam ID from previous page.
     this.request = this.match.params.subscribe(params => {
       this.server_steam_id = params.server_steam_id;
-      console.log(this.server_steam_id);
       this.dataSource.sort = this.sort;
+     
     });
 
     // Call service to get match data with server steam id as query key
     this.interval = setInterval(() => {
       this.getMatchDetail.getMatchDetail(this.server_steam_id).subscribe(match_detail => {
         this.matchDetail = match_detail;
-
+        console.log(this.matchDetail);
+        this.extractData();
+        console.log()
+        //console.log()
       });
     }, 5000);
 
@@ -100,6 +101,8 @@ export class MatchDetailComponent implements OnInit {
 
   extractData() {
     // collect match mata data
+    //console.log(2323);
+    this.Players = [];
     this.time = this.matchDetail.time;
     this.graph_data = this.matchDetail.worth_graph;
     let i = 0;
@@ -119,7 +122,8 @@ export class MatchDetailComponent implements OnInit {
       this.Players.push(tmp);
       i = i + 1;
     }
-
+    
+    let j = 0;
     for (const p of this.matchDetail.dire.players) {
       const tmp = {
         'name': p.name,
@@ -131,11 +135,12 @@ export class MatchDetailComponent implements OnInit {
         'gold': p.gold,
         'net_worth': p.net_worth,
         'last_hit': p.lh_count,
-        'icon': this.matchDetail.picks.dire[i].icon
+        'icon': this.matchDetail.picks.dire[j].icon
       };
       this.Players.push(tmp);
-      i = i + 1;
+      j = j + 1;
     }
+    console.log(this.Players);
     // Net worth line
     this.lineChartData = [{data: this.graph_data, label: 'Team Worth Difference'}];
     this.lineChartLabels = this.range(0, this.time, this.graph_data.length);
@@ -149,7 +154,7 @@ export class MatchDetailComponent implements OnInit {
     this.radiant_base = this.matchDetail.radiant.buildings[2][0];
 
     // collect dire_data
-    this.dire_score = this.matchDetail.radiant.score;
+    this.dire_score = this.matchDetail.dire.score;
     this.dire_heroes = this.matchDetail.picks.dire;
     this.dire_bans = this.matchDetail.bans.dire;
     this.dire_towers = this.matchDetail.radiant.buildings[0];

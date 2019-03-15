@@ -1,28 +1,28 @@
 <mat-grid-list class="match-view" cols="5" rowHeight='120px'>
   <mat-grid-tile class ="match-core" colspan = "5" rowspan="1">
     <div class = "matchBrif">
-      <span id="radiant">20 </span>
-      <span id ="time"> {{1345 | timeStamp2MinSec}} </span>
-      <span id = "dire"> 12 </span>
-      <span id = "MMR">MMR: 3321 </span>
-      <span id = "viewer"><i class="material-icons"> visibility </i> 212 </span>
+      <span id="radiant">{{radiant_score}} </span>
+      <span id ="time"> {{time | timeStamp2MinSec}} </span>
+      <span id = "dire"> {{dire_score}} </span>
+      <span id = "MMR" style="visibility: hidden;">MMR: 22 </span>
+      <span id = "viewer" style="visibility: hidden;"><i class="material-icons"> visibility </i> 22 </span>
     </div>
   </mat-grid-tile>
   <mat-grid-tile class ="match-ban-pick" colspan = "5" rowspan="1" style="display: block;">
     <div class = "pick">
         <div class = "radiant" >
-            <img *ngFor = "let hero of heroes" class = "onPage" src={{hero}} title="pick">
+            <img *ngFor = "let hero of radiant_heroes" class = "onPage" src={{hero.img}} title={{hero.name}}>
           </div>
           <div class = "dire">
-            <img *ngFor = "let hero of heroes" class = "onPage" src={{hero}}  title="pick">
+            <img *ngFor = "let hero of dire_heroes" class = "onPage" src={{hero.img}}  title={{hero.name}}>
           </div>
     </div>
     <div class = "ban">
       <div class = "radiant" >
-        <img *ngFor = "let hero of [1, 2, 3, 4, 5, 6]" class = "onPage" src={{bans}} title="pick">
+        <img *ngFor = "let hero of radiant_bans" class = "onPage" src={{hero.img}} title={{hero.name}}>
         </div>
         <div class = "dire">
-          <img *ngFor = "let hero of [1, 2, 3, 4, 5, 6]" class = "onPage" src={{bans}} title="pick"> 
+          <img *ngFor = "let hero of dire_bans" class = "onPage" src={{hero.img}} title={{hero.name}}> 
         </div>
     </div>
   </mat-grid-tile>
@@ -32,6 +32,7 @@
   <mat-grid-tile class ="match-mata-data" colspan = "3" rowspan="5">
     <mat-tab-group>
         <mat-tab label="NET WORTH">
+          <!-- You will not be able to see this text.
             <div class='net-worth-chart'>
                 <canvas width="620" height="420" id = 'net-worth-chart' baseChart  
                 [datasets]="lineChartData"
@@ -42,10 +43,11 @@
                 [chartType]="lineChartType"
                 ></canvas>
             </div>
-              
+          -->     
         </mat-tab>
         <mat-tab label="NET WORTH DIFF">
           <div class='net-worth-chart'>
+            <!-- You will not be able to see this text. 
               <canvas width="620" height="420" id = 'net-worth-chart' baseChart  
               [datasets]="lineChartData"
               [labels]="lineChartLabels"
@@ -54,6 +56,7 @@
               [legend]="lineChartLegend"
               [chartType]="lineChartType"
               ></canvas>
+            -->
           </div>  
       </mat-tab>
     </mat-tab-group>

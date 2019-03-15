@@ -53,7 +53,7 @@ function parseGameObj(gameList, gameListServerSteamId){
         id = game["players"][i]["hero_id"];
         id = id.toString();
       } catch (error){
-        //console.log(error);
+        console.log(error);
         id = 0;
       }
       name = (id > 0) ? heroRef[id]["localized_name"] : 'Not Defined';
@@ -76,7 +76,7 @@ function parseRawGameDetail(raw_gameDetail){
   var buildings = raw_gameDetail["buildings"];
   var graph_data = raw_gameDetail["graph_data"];
   //console.log(raw_gameDetail); 
-  console.log(matchDetail);
+  //console.log(matchDetail);
   //console.log(teams);
   //console.log(buildings);
   //console.log(graph_data);
@@ -85,6 +85,7 @@ function parseRawGameDetail(raw_gameDetail){
   gameDetail["bans"] = {"radiant": [], "dire": []};
 
   if ("bans" in matchDetail){
+    pick = matchDetail["picks"];
     for (i = 0; i < 12; i++){
       try {
         ban = matchDetail["bans"][i];
@@ -96,12 +97,17 @@ function parseRawGameDetail(raw_gameDetail){
       }
       name = (id > 0) ? heroRef[id]["localized_name"] : 'Not Defined';
       img = (id > 0) ? heroRef[id]["img"] : 'assets/heroes/onPage/default.png';
-      if (pick["team"] == 2){
+      if (ban["team"] == 2){
         gameDetail["bans"]["radiant"].push({"name": name, "img": img})
       }
       else {
         gameDetail["bans"]["dire"].push({"name": name, "img": img})
       }
+    }
+  }else {
+    for (i = 0; i < 6; i++){
+      gameDetail["bans"]["radiant"].push({"name": 'Not Defined', "img": 'assets/heroes/onPage/default.png'})
+      gameDetail["bans"]["dire"].push({"name": 'Not Defined', "img": 'assets/heroes/onPage/default.png'})
     }
   }
   gameDetail["radiant"] = {};

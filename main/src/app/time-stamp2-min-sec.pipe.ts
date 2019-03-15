@@ -7,6 +7,7 @@ export class TimeStamp2MinSecPipe implements PipeTransform {
 
   transform(timeStamp: number): string {
 
+    timeStamp = Math.max(0, timeStamp);
     const hour = Math.floor(timeStamp / 60);
     let hourString = String(hour);
     const mins = timeStamp % 60;
