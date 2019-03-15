@@ -1,39 +1,58 @@
+<div  *ngIf="loadingData == true; else displayMatch">
+    <mat-spinner class="loading"></mat-spinner>
+</div>
+
+<ng-template #displayMatch>
 <mat-grid-list class="match-view" cols="5" rowHeight='120px'>
-  <mat-grid-tile class ="match-core" colspan = "5" rowspan="1">
-    <div class = "matchBrif">
-      <span id="radiant">{{radiant_score}} </span>
-      <span id ="time"> {{time | timeStamp2MinSec}} </span>
-      <span id = "dire"> {{dire_score}} </span>
-      <span id = "MMR" style="visibility: hidden;">MMR: 22 </span>
-      <span id = "viewer" style="visibility: hidden;"><i class="material-icons"> visibility </i> 22 </span>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile class ="match-ban-pick" colspan = "5" rowspan="1" style="display: block;">
-    <div class = "pick">
+    <mat-grid-tile class ="match-core" colspan = "5" rowspan="1">
+      <div class = "matchBrif">
+        <span id="radiant">{{radiant_score}} </span>
+        <span id ="time"> {{time | timeStamp2MinSec}} </span>
+        <span id = "dire"> {{dire_score}} </span>
+        <span id = "MMR" style="visibility: hidden;">MMR: 22 </span>
+        <span id = "viewer" style="visibility: hidden;"><i class="material-icons"> visibility </i> 22 </span>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class ="match-ban-pick" colspan = "5" rowspan="1" style="display: block;">
+      <div class = "pick">
+          <div class = "radiant" >
+              <img *ngFor = "let hero of radiant_heroes" class = "onPage" src={{hero.img}} title={{hero.name}}>
+            </div>
+            <div class = "dire">
+              <img *ngFor = "let hero of dire_heroes" class = "onPage" src={{hero.img}}  title={{hero.name}}>
+            </div>
+      </div>
+      <div class = "ban">
         <div class = "radiant" >
-            <img *ngFor = "let hero of radiant_heroes" class = "onPage" src={{hero.img}} title={{hero.name}}>
+          <img *ngFor = "let hero of radiant_bans" class = "onPage" src={{hero.img}} title={{hero.name}}>
           </div>
           <div class = "dire">
-            <img *ngFor = "let hero of dire_heroes" class = "onPage" src={{hero.img}}  title={{hero.name}}>
+            <img *ngFor = "let hero of dire_bans" class = "onPage" src={{hero.img}} title={{hero.name}}> 
           </div>
-    </div>
-    <div class = "ban">
-      <div class = "radiant" >
-        <img *ngFor = "let hero of radiant_bans" class = "onPage" src={{hero.img}} title={{hero.name}}>
-        </div>
-        <div class = "dire">
-          <img *ngFor = "let hero of dire_bans" class = "onPage" src={{hero.img}} title={{hero.name}}> 
-        </div>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile class ="match-map" colspan = "2" rowspan="5">
-    <div class="map"></div> 
-  </mat-grid-tile>
-  <mat-grid-tile class ="match-mata-data" colspan = "3" rowspan="5">
-    <mat-tab-group>
-        <mat-tab label="NET WORTH">
-          <!-- You will not be able to see this text.
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class ="match-map" colspan = "2" rowspan="5">
+      <div class="map"></div> 
+    </mat-grid-tile>
+    <mat-grid-tile class ="match-mata-data" colspan = "3" rowspan="5">
+      <mat-tab-group>
+          <mat-tab label="NET WORTH">
+            <!-- You will not be able to see this text. -->
+              <div class='net-worth-chart'>
+                  <canvas width="620" height="420" id = 'net-worth-chart' baseChart  
+                  [datasets]="lineChartData"
+                  [labels]="lineChartLabels"
+                  [options]="lineChartOptions"
+                  [colors]="lineChartColors"
+                  [legend]="lineChartLegend"
+                  [chartType]="lineChartType"
+                  ></canvas>
+              </div>
+
+          </mat-tab>
+          <mat-tab label="NET WORTH DIFF">
             <div class='net-worth-chart'>
+              <!-- You will not be able to see this text. 
                 <canvas width="620" height="420" id = 'net-worth-chart' baseChart  
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
@@ -42,54 +61,70 @@
                 [legend]="lineChartLegend"
                 [chartType]="lineChartType"
                 ></canvas>
-            </div>
-          -->     
+              -->
+            </div>  
         </mat-tab>
-        <mat-tab label="NET WORTH DIFF">
-          <div class='net-worth-chart'>
-            <!-- You will not be able to see this text. 
-              <canvas width="620" height="420" id = 'net-worth-chart' baseChart  
-              [datasets]="lineChartData"
-              [labels]="lineChartLabels"
-              [options]="lineChartOptions"
-              [colors]="lineChartColors"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"
-              ></canvas>
-            -->
-          </div>  
-      </mat-tab>
-    </mat-tab-group>
-  </mat-grid-tile>
-  <mat-grid-tile class ="match-heroes" colspan = "5" rowspan="5">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      </mat-tab-group>
+    </mat-grid-tile>
+    <mat-grid-tile class ="match-heroes" colspan = "5" rowspan="5">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- Hero Column -->
+        <ng-container matColumnDef="hero">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header-disabled> Hero </th>
+            <td mat-cell *matCellDef="let element"> <img src = {{element.icon}}> </td>
+        </ng-container>
+        
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header-disabled> Name </th>
+          <td mat-cell *matCellDef="let element">  {{element.name}} </td>
+        </ng-container>
+      
+        <!-- Level Column -->
+        <ng-container matColumnDef="level">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Level </th>
+          <td mat-cell *matCellDef="let element"> {{element.level}} </td>
+        </ng-container>
+      
+        <!-- Kill Column -->
+        <ng-container matColumnDef="kill">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Kill </th>
+          <td mat-cell *matCellDef="let element"> {{element.kill}} </td>
+        </ng-container>
+      
+        <!-- Death Column -->
+        <ng-container matColumnDef="death">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Death </th>
+          <td mat-cell *matCellDef="let element"> {{element.death}} </td>
+        </ng-container>
+        
+        <!-- Death Column -->
+        <ng-container matColumnDef="assist">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Death </th>
+            <td mat-cell *matCellDef="let element"> {{element.assist}} </td>
+        </ng-container>
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header-disabled> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-      </ng-container>
-    
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-      </ng-container>
-    
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
-        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-      </ng-container>
-    
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-      </ng-container>
-    
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </mat-grid-tile>
-</mat-grid-list>
+          <!-- Death Column -->
+        <ng-container matColumnDef="last_hit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Hit </th>
+            <td mat-cell *matCellDef="let element"> {{element.last_hit}} </td>
+        </ng-container>
+
+        <!-- Death Column -->
+        <ng-container matColumnDef="deny">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Deny </th>
+            <td mat-cell *matCellDef="let element"> {{element.deny}} </td>
+        </ng-container>
+
+         <!-- Death Column -->
+         <ng-container matColumnDef="net_worth">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Net Worth </th>
+            <td mat-cell *matCellDef="let element"> {{element.net_worth}} </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>

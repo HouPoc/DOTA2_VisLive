@@ -25,8 +25,9 @@ export interface Player {
 })
 
 
-export class MatchDetailComponent implements OnInit {
-
+export class MatchDetailComponent implements OnDestroy, OnInit {
+  loadingData = true;
+  //
   matchDetail: any;
   interval: any;
   request: any;
@@ -50,12 +51,12 @@ export class MatchDetailComponent implements OnInit {
   time: number;
   graph_data: any[];
   Players: Player[] = [];
-
+  dataSource: any;
 
   public lineChartData: Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Team Worth Difference'},
+    
   ];
-  public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels: Array<any> = [];
   public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
@@ -74,16 +75,14 @@ export class MatchDetailComponent implements OnInit {
               private getMatchDetail: GetMatchDetailService
               ) { }
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(this.Players);
+  displayedColumns: string[] = ['hero', 'name', 'level', 'kill', 'death', 'assist','deny', 'last_hit', 'net_worth'];
+  
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
     // Get Server Steam ID from previous page.
     this.request = this.match.params.subscribe(params => {
       this.server_steam_id = params.server_steam_id;
-      this.dataSource.sort = this.sort;
-     
     });
 
     // Call service to get match data with server steam id as query key
@@ -92,13 +91,18 @@ export class MatchDetailComponent implements OnInit {
         this.matchDetail = match_detail;
         console.log(this.matchDetail);
         this.extractData();
-        console.log()
-        //console.log()
+        this.dataSource = new MatTableDataSource(this.Players);
+        this.dataSource.sort = this.sort;
+        this.loadingData = false;
+        console.log(this.dataSource);
       });
     }, 5000);
 
   }
 
+  ngOnDestroy(){
+    clearInterval(this.interval);
+  }
   extractData() {
     // collect match mata data
     //console.log(2323);
@@ -140,10 +144,10 @@ export class MatchDetailComponent implements OnInit {
       this.Players.push(tmp);
       j = j + 1;
     }
-    console.log(this.Players);
     // Net worth line
     this.lineChartData = [{data: this.graph_data, label: 'Team Worth Difference'}];
     this.lineChartLabels = this.range(0, this.time, this.graph_data.length);
+    //console.log(this.lineChartLabels);
 
     // collect radiant_data
     this.radiant_score = this.matchDetail.radiant.score;
