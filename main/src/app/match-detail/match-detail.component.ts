@@ -53,6 +53,9 @@ export class MatchDetailComponent implements OnDestroy, OnInit {
   Players: Player[] = [];
   dataSource: any;
 
+  testPos = {'margin-top': "200px",
+             'margin-left': "50px"              
+};
   public lineChartData: Array<any> = [
     
   ];
@@ -89,12 +92,12 @@ export class MatchDetailComponent implements OnDestroy, OnInit {
     this.interval = setInterval(() => {
       this.getMatchDetail.getMatchDetail(this.server_steam_id).subscribe(match_detail => {
         this.matchDetail = match_detail;
-        console.log(this.matchDetail);
+        //console.log(this.matchDetail);
         this.extractData();
         this.dataSource = new MatTableDataSource(this.Players);
         this.dataSource.sort = this.sort;
         this.loadingData = false;
-        console.log(this.dataSource);
+        //console.log(this.dataSource);
       });
     }, 5000);
 
@@ -145,13 +148,17 @@ export class MatchDetailComponent implements OnDestroy, OnInit {
       j = j + 1;
     }
     // Net worth line
-    this.lineChartData = [{data: this.graph_data, label: 'Team Worth Difference'}];
-    this.lineChartLabels = this.range(0, this.time, this.graph_data.length);
-    //console.log(this.lineChartLabels);
-
+    this.lineChartData = [{data: this.graph_data, label: 'Team Worth Difference (Radiant - Dire)'}];
+    this.lineChartLabels = this.range(0, this.time, this.time/this.graph_data.length);
+    console.log(this.lineChartLabels);
+    console.log(this.graph_data);
     // collect radiant_data
     this.radiant_score = this.matchDetail.radiant.score;
     this.radiant_heroes = this.matchDetail.picks.radiant;
+    for (i = 0; i < 5 ; i++){
+      this.radiant_heroes[i].style = {"margin-top.px": this.matchDetail.radiant.players[i].y, "margin-left.px": this.matchDetail.radiant.players[i].x};
+    }
+    //console.log(this.radiant_heroes);
     this.radiant_bans = this.matchDetail.bans.radiant;
     this.radiant_towers = this.matchDetail.radiant.buildings[0];
     this.radiant_barracks = this.matchDetail.radiant.buildings[1];
@@ -160,6 +167,9 @@ export class MatchDetailComponent implements OnDestroy, OnInit {
     // collect dire_data
     this.dire_score = this.matchDetail.dire.score;
     this.dire_heroes = this.matchDetail.picks.dire;
+    for (i = 0; i < 5 ; i++){
+      this.dire_heroes[i].style = {"margin-top.px": this.matchDetail.dire.players[i].y, "margin-left.px": this.matchDetail.dire.players[i].x};
+    }
     this.dire_bans = this.matchDetail.bans.dire;
     this.dire_towers = this.matchDetail.radiant.buildings[0];
     this.dire_barracks = this.matchDetail.radiant.buildings[1];

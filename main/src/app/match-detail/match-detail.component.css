@@ -8,6 +8,7 @@
     height: 560px;
     background-image: url('../../assets/maps/720e.png');
     background-size: cover;
+    position: relative;
 }
 
 .match-view .match-core .matchBrif{
@@ -109,3 +110,16 @@
     width: 1280px;
     margin-right: 110px;
   }
+
+
+.radiant_hero{
+  border: 2px solid green;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.dire_hero{
+  border: 2px solid darkred;
+  position: absolute;
+  border-radius: 50%;
+}

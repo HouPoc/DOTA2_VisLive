@@ -32,7 +32,10 @@
       </div>
     </mat-grid-tile>
     <mat-grid-tile class ="match-map" colspan = "2" rowspan="5">
-      <div class="map"></div> 
+      <div class="map">
+        <img class='radiant_hero' *ngFor = "let hero of radiant_heroes" src={{hero.icon}} [ngStyle] = "hero.style">
+        <img class='dire_hero' *ngFor = "let hero of dire_heroes" src={{hero.icon}} [ngStyle] = "hero.style">
+      </div> 
     </mat-grid-tile>
     <mat-grid-tile class ="match-mata-data" colspan = "3" rowspan="5">
       <mat-tab-group>

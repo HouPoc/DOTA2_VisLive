@@ -118,6 +118,8 @@ function parseRawGameDetail(raw_gameDetail){
   RPs = teams[0]["players"];
   for (i = 0; i < 5; i++){
     id = RPs[i]["heroid"];
+    RPs[i]["x"] = RPs[i]["x"] * (565) + 263;
+    RPs[i]["y"] = RPs[i]["y"] * (-609) + 255;
     delete RPs[i]["accountid"];
     delete RPs[i]["playerid"];
     delete RPs[i]["heroid"];
@@ -135,6 +137,8 @@ function parseRawGameDetail(raw_gameDetail){
   DPs = teams[1]["players"];
   for (i = 0; i < 5; i++){
     id = DPs[i]["heroid"];
+    DPs[i]["x"] = DPs[i]["x"] * (565) + 263;
+    DPs[i]["y"] = DPs[i]["y"] * (-609) + 255;
     delete DPs[i]["accountid"];
     delete DPs[i]["playerid"];
     delete DPs[i]["heroid"];
