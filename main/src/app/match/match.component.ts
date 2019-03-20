@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GetMatchesService } from '../get-matches.service';
 import { Router } from '@angular/router';
 
@@ -8,20 +8,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./match.component.css']
 })
 
-export class MatchComponent implements OnInit {
+export class MatchComponent implements OnDestroy, OnInit {
   matchList: any = [];
+  interval: any;
   loadingData = true;
   constructor(private matches: GetMatchesService, private router: Router) {
   }
 
   ngOnInit() {
-    this.matches.getLiveMatches().subscribe(matches => {
-      this.matchList = matches;
-      this.loadingData = false;
-    });
+
+    this.interval = setInterval(() => {
+      this.matches.getLiveMatches().subscribe(matches => {
+        this.matchList = matches;
+        this.loadingData = false;
+      });
+      console.log(this.matchList);
+    }, 5000);
   }
 
-  watchMatch(matchId: string) {
-    this.router.navigate(['matchDetail']);
+  ngOnDestroy () {
+    clearInterval(this.interval);
+  }
+
+  watchMatch(server_steam_id: string) {
+    this.router.navigate(['match', server_steam_id]);
   }
 }
