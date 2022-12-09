@@ -25,7 +25,7 @@
     "body-parser": "^1.18.3",
     "chart.js": "^2.8.0",
     "core-js": "^2.5.4",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "lossless-json": "^1.0.3",
     "ng2-charts": "^2.0.3",
     "nodemon": "^1.18.10",
